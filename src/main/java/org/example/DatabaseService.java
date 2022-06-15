@@ -2,6 +2,15 @@ package org.example;
 
 import java.sql.*;
 
+/**
+ * JDBC Java DataBase Connectivity -> Ma'lumotlar omboriga bog'lovchi deb tarjima qilinadi.
+ */
+
+/**
+ * Callable statement  -> MO funksiya va proseduralar chaqirish uchun muljallangan statement
+ */
+
+
 public class DatabaseService {
     private String url = "jdbc:postgresql://localhost:5432/app-api-spring-advanced-one";
     private String dbUser = "postgres";
@@ -13,9 +22,16 @@ public class DatabaseService {
      * </h1>
      * @param user variables object
      */
+
     public void saveUser(User user){
+        /**
+         * Connection -> Java applacetionimizni MOBT bn bog'laydi
+         */
         try {
             Connection boglovchi = DriverManager.getConnection(url,dbUser,dbPassword);
+            /**
+             * Statement -> Statemant objecti orqali MOBT ga SQL so'rovlarini amalga oshiradi
+             */
             Statement statement = boglovchi.createStatement();
             String query = "insert into users(first_name,last_name,username,password) " +
                     "values('"+user.getFirstname()+"'," +
@@ -40,6 +56,9 @@ public class DatabaseService {
             boglovchi = DriverManager.getConnection(url,dbUser,dbPassword);
             Statement statement = boglovchi.createStatement();
             String query = "select * from users";
+            /**
+             * ResultSet -> so'rov natijasi bilan ishlashga mo'ljallangan interface
+             */
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()){
                 int id =  resultSet.getInt("id");
@@ -112,6 +131,10 @@ public class DatabaseService {
 
     /**
      *<h1> 1.added to dataBase PreparedStatement</h1>
+     */
+
+    /**
+     * PreparedStatement -> statement + parametirlari bilan
      */
     public void saveUserPreparedStatement(User user){
         try {
